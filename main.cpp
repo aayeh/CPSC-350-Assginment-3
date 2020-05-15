@@ -1,24 +1,27 @@
-#include <iostream>
-#include <fstream>
-#include <stack>
-#include <string>
 #include "GenStack.h"
 #include "delimiter.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
-int main(int argc, char** argv) {
-    delimiter d;
-
-    //If no file was specified when running a.out
-    if (argc < 2) {
-        cout << "ERROR: Please Enter Valid File Input\n" << endl;
-    }
-    //If a file was specified when running a.out
-    else if (argc >= 2) {
-        string file = argv[1]; //set file equal to argv
-        d.checkBrackets(file); //call checkBrackets from delimiter.cpp
-    }
-
+int main (int argc, char** argv)
+{
+  if (argc != 2) //checking if filepath was entered. If no filepath given, program ends
+  {
+    cout << "Please run again and include the filepath" << endl;
     return 0;
+  }
+
+  ifstream textFile(argv[1]);
+
+  if (textFile.is_open() && textFile.good())
+  {
+    textFile.close();
+    delimiter dl(argv[1]);
+  }
+  else
+    cout << "Unable to open file" << endl;
+
+  return 0;
 }
